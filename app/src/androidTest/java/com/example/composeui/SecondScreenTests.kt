@@ -134,7 +134,7 @@ class SecondScreenTests {
     }
 
     @Test
-    fun markTaskAsActiveAgain(){
+    fun markTaskAsActiveAgain() {
         rule.setContent { SecondScreen(onGoFirst = {}) }
 
         rule.onNodeWithTag("task_input")
@@ -149,9 +149,29 @@ class SecondScreenTests {
         rule.onNodeWithTag("todo_status_0")
             .assertTextContains("ACTIVE")
     }
+
+    @Test
+    fun activeTaskCounter() {
+        rule.setContent { SecondScreen(onGoFirst = {}) }
+
+        val tasks = listOf("Первая задача", "Вторая задача", "Третья задача")
+
+        for (task in tasks) {
+            rule.onNodeWithTag("task_input")
+                .performTextInput(task)
+            rule.onNodeWithTag("add_button")
+                .performClick()
+        }
+        rule.onNodeWithTag("active_count")
+            .assertTextEquals("Активных задач: ${tasks.size}")
+
+        rule.onNodeWithTag("todo_checkbox_0")
+            .performClick()
+
+        rule.onNodeWithTag("active_count")
+            .assertTextEquals("Активных задач: ${tasks.size - 1}")
+    }
 }
-
-
 
 
 

@@ -1,27 +1,25 @@
 package com.example.composeui
 
 import androidx.compose.runtime.*
-
-@Composable
-fun App() {
-
-    val screen = remember {
-        mutableStateOf<Screen>(Screen.First)
-    }
-
-    when (screen.value) {
-
-        Screen.First -> FirstScreen(
-            onGoSecond = { screen.value = Screen.Second }
-        )
-
-        Screen.Second -> SecondScreen(
-            onBack = { screen.value = Screen.First }
-        )
-    }
-}
+import com.example.composeui.screen.FirstScreen
+import com.example.composeui.screen.SecondScreen
 
 sealed class Screen {
     object First : Screen()
     object Second : Screen()
+}
+
+@Composable
+fun App() {
+    var screen by remember { mutableStateOf<Screen>(Screen.First) }
+
+    when (screen) {
+        Screen.First -> FirstScreen(
+            onGoSecond = { screen = Screen.Second }
+        )
+
+        Screen.Second -> SecondScreen(
+            onBack = { screen = Screen.First }
+        )
+    }
 }

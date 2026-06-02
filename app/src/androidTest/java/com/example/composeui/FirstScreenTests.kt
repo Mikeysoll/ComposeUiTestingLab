@@ -109,6 +109,7 @@ class FirstScreenTests {
         repeat(5) {
             node.performClick()
         }
+
         rule.onNodeWithText("Счётчик: 5")
             .assertIsDisplayed()
     }

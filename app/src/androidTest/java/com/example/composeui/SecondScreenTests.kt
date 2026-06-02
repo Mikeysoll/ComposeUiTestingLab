@@ -294,7 +294,6 @@ class SecondScreenTests {
             .assertCountEquals(4)
         rule.onNodeWithText("Первая задача")
             .assertDoesNotExist()
-
     }
 }
 

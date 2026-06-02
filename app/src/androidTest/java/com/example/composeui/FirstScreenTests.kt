@@ -14,7 +14,7 @@ class FirstScreenTests {
     val rule = createComposeRule()
 
     @Test
-    fun start_state_should_show_guest() {
+    fun initialGuestStateDisplayed() {
         rule.setContent { FirstScreen(onGoSecond = {}) }
 
         rule.onNodeWithText("Статус: Гость")
@@ -29,7 +29,7 @@ class FirstScreenTests {
     }
 
     @Test
-    fun click_login_button_should_change_status() {
+    fun loginToggleChangesStatus() {
         rule.setContent { FirstScreen(onGoSecond = {}) }
 
         rule.onNodeWithText("Войти / Выйти")
@@ -44,7 +44,7 @@ class FirstScreenTests {
     }
 
     @Test
-    fun counter_should_increment() {
+    fun counterIncrements() {
         rule.setContent { FirstScreen(onGoSecond = {}) }
 
         rule.onNodeWithText("+")
@@ -55,7 +55,7 @@ class FirstScreenTests {
     }
 
     @Test
-    fun counter_should_decrement() {
+    fun counterDecrements() {
         rule.setContent { FirstScreen(onGoSecond = {}) }
 
         rule.onNodeWithText("+")
@@ -72,7 +72,7 @@ class FirstScreenTests {
     }
 
     @Test
-    fun error_should_show_when_counter_below_zero_blocked() {
+    fun errorShownOnNegativeCounterBlocked() {
         rule.setContent { FirstScreen(onGoSecond = {}) }
 
         rule.onNodeWithText("Счётчик: 0")
@@ -86,7 +86,7 @@ class FirstScreenTests {
     }
 
     @Test
-    fun switchTheScreen() {
+    fun switchToSecondScreen() {
         var clicked = false
 
         rule.setContent { FirstScreen(onGoSecond = { clicked = true }) }
@@ -97,7 +97,7 @@ class FirstScreenTests {
     }
 
     @Test
-    fun combinationTest(){
+    fun combinedUserFlowTest(){
         rule.setContent { FirstScreen (onGoSecond ={}) }
         rule.onNodeWithText("Войти / Выйти")
             .performClick()

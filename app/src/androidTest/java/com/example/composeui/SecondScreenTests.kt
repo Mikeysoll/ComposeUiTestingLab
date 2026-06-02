@@ -23,7 +23,7 @@ class SecondScreenTests {
     val rule = createComposeRule()
 
     @Test
-    fun should_display_initial_ui_state() {
+    fun initialUiStateDisplayed() {
         rule.setContent { SecondScreen(onGoFirst = {}) }
 
         rule.onNodeWithTag("title")
@@ -33,7 +33,7 @@ class SecondScreenTests {
     }
 
     @Test
-    fun empty_number_of_tasks() {
+    fun emptyStateShowsZeroTasks() {
         rule.setContent { SecondScreen(onGoFirst = {}) }
 
         rule.onNodeWithTag("active_count")
@@ -43,7 +43,7 @@ class SecondScreenTests {
     }
 
     @Test
-    fun add_first_task() {
+    fun addFirstTask() {
         rule.setContent { SecondScreen(onGoFirst = {}) }
 
         val taskText = "Первая задача"
@@ -62,7 +62,7 @@ class SecondScreenTests {
     }
 
     @Test
-    fun delete_task_from_list() {
+    fun deleteTaskFromList() {
         rule.setContent { SecondScreen(onGoFirst = {}) }
 
         val taskText = "Первая задача"
@@ -85,7 +85,7 @@ class SecondScreenTests {
     }
 
     @Test
-    fun empty_field_after_adding_task() {
+    fun inputClearsAfterAdd() {
         rule.setContent { SecondScreen(onGoFirst = {}) }
 
         val taskText = "Первая задача"
@@ -100,7 +100,7 @@ class SecondScreenTests {
     }
 
     @Test
-    fun adding_multiple_tasks() {
+    fun addMultipleTasks() {
         rule.setContent { SecondScreen(onGoFirst = {}) }
 
         val tasks = listOf("Первая задача", "Вторая задача", "Третья задача")
@@ -119,7 +119,7 @@ class SecondScreenTests {
     }
 
     @Test
-    fun mark_task_as_done() {
+    fun markTaskAsDone() {
         rule.setContent { SecondScreen(onGoFirst = {}) }
 
         rule.onNodeWithTag("task_input")
@@ -134,7 +134,7 @@ class SecondScreenTests {
     }
 
     @Test
-    fun mark_task_as_active(){
+    fun markTaskAsActiveAgain(){
         rule.setContent { SecondScreen(onGoFirst = {}) }
 
         rule.onNodeWithTag("task_input")
@@ -148,8 +148,6 @@ class SecondScreenTests {
 
         rule.onNodeWithTag("todo_status_0")
             .assertTextContains("ACTIVE")
-        Thread.sleep(3000)
-
     }
 }
 

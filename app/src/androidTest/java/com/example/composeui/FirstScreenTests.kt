@@ -23,7 +23,7 @@ class FirstScreenTests {
         rule.onNodeWithText("Перейти на 2 экран")
             .assertIsDisplayed()
 
-        rule.onNodeWithText("Cчётчик: 0")
+        rule.onNodeWithText("Счётчик: 0")
             .assertIsDisplayed()
 
     }

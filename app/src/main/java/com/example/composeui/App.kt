@@ -19,7 +19,7 @@ fun App() {
         )
 
         Screen.Second -> SecondScreen(
-            onBack = { screen = Screen.First }
+            onGoFirst = { screen = Screen.First }
         )
     }
 }

@@ -21,7 +21,7 @@ enum class Filter {
 
 @Composable
 fun SecondScreen(
-    onBack: () -> Unit
+    onGoFirst: () -> Unit
 ) {
     var input by remember { mutableStateOf("") }
     var items by remember { mutableStateOf(listOf<TodoItem>()) }
@@ -177,8 +177,8 @@ fun SecondScreen(
         }
 
         Button(
-            onClick = onBack,
-            modifier = Modifier.testTag("back_button")
+            onClick = onGoFirst,
+            modifier = Modifier.testTag("first_screen_button")
         ) {
             Text("Перейти на 1 экран")
         }

@@ -366,7 +366,34 @@ class SecondScreenTests {
         rule.onNodeWithTag("empty_state")
             .assertTextEquals("Нет задач 😴")
     }
+    @Test
+    fun filterSwitchKeepsData(){
+        rule.setContent { SecondScreen(onGoFirst = {}) }
+
+        val tasks = listOf(
+            "Первая задача",
+            "Вторая задача",
+            "Третья задача",
+        )
+
+        for (task in tasks) {
+            rule.onNodeWithTag("task_input")
+                .performTextInput(task)
+            rule.onNodeWithTag("add_button")
+                .performClick()
+        }
+        rule.onNodeWithTag("filter_active")
+            .performClick()
+        rule.onAllNodesWithTag("todo_item")
+            .assertCountEquals(3)
+        rule.onNodeWithTag("filter_all")
+            .performClick()
+        rule.onAllNodesWithTag("todo_item")
+            .assertCountEquals(3)
+    }
 }
+
+
 
 
 

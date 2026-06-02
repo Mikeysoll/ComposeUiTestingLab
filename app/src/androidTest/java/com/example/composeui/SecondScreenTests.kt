@@ -368,7 +368,7 @@ class SecondScreenTests {
     }
 
     @Test
-    fun filterSwitchKeepsData(){
+    fun filterSwitchKeepsData() {
         rule.setContent { SecondScreen(onGoFirst = {}) }
 
         val tasks = listOf(
@@ -394,7 +394,7 @@ class SecondScreenTests {
     }
 
     @Test
-    fun activeCountExcludesDoneTasks(){
+    fun activeCountExcludesDoneTasks() {
         rule.setContent { SecondScreen(onGoFirst = {}) }
 
         val tasks = listOf(
@@ -417,7 +417,18 @@ class SecondScreenTests {
             .performClick()
 
         rule.onNodeWithTag("active_count")
-            .assertTextEquals("Активных задач: ${tasks.size-1}")
+            .assertTextEquals("Активных задач: ${tasks.size - 1}")
+    }
+
+    @Test
+    fun switchToFirstScreen() {
+        var clicked = false
+        rule.setContent { SecondScreen(onGoFirst = { clicked = true }) }
+
+        rule.onNodeWithTag("first_screen_button")
+            .performClick()
+
+        assert(clicked)
     }
 }
 

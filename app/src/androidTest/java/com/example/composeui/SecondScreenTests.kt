@@ -57,6 +57,8 @@ class SecondScreenTests {
             .assertTextEquals("Первая задача")
         rule.onNodeWithTag("active_count")
             .assertTextEquals("Активных задач: 1")
+        rule.onNodeWithTag("todo_status_0")
+            .assertTextContains("ACTIVE")
     }
 
     @Test

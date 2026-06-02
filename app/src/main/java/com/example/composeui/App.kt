@@ -4,16 +4,19 @@ import androidx.compose.runtime.*
 
 @Composable
 fun App() {
-    var screen by remember { mutableStateOf(Screen.First) }
 
-    when (screen) {
+    val screen = remember {
+        mutableStateOf<Screen>(Screen.First)
+    }
+
+    when (screen.value) {
 
         Screen.First -> FirstScreen(
-            onGoSecond = { screen = Screen.Second }
+            onGoSecond = { screen.value = Screen.Second }
         )
 
         Screen.Second -> SecondScreen(
-            onBack = { screen = Screen.First }
+            onBack = { screen.value = Screen.First }
         )
     }
 }

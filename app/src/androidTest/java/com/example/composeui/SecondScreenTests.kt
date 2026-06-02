@@ -132,6 +132,25 @@ class SecondScreenTests {
         rule.onNodeWithTag("todo_status_0")
             .assertTextContains("DONE")
     }
+
+    @Test
+    fun mark_task_as_active(){
+        rule.setContent { SecondScreen(onGoFirst = {}) }
+
+        rule.onNodeWithTag("task_input")
+            .performTextInput("Первая задача")
+        rule.onNodeWithTag("add_button")
+            .performClick()
+        rule.onNodeWithTag("todo_checkbox_0")
+            .performClick()
+        rule.onNodeWithTag("todo_checkbox_0")
+            .performClick()
+
+        rule.onNodeWithTag("todo_status_0")
+            .assertTextContains("ACTIVE")
+        Thread.sleep(3000)
+
+    }
 }
 
 

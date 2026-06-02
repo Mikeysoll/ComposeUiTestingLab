@@ -337,9 +337,56 @@ class SecondScreenTests {
             .assertTextEquals("Четвертая задача")
         rule.onNodeWithTag("todo_text_4")
             .assertTextEquals("Пятая задача")
+    }
 
+    @Test
+    fun checkEmptyStateWithFilter() {
+        rule.setContent { SecondScreen(onGoFirst = {}) }
+
+        val tasks = listOf(
+            "Первая задача",
+            "Вторая задача",
+            "Третья задача",
+        )
+
+        for (task in tasks) {
+            rule.onNodeWithTag("task_input")
+                .performTextInput(task)
+            rule.onNodeWithTag("add_button")
+                .performClick()
+        }
+
+        rule.onNodeWithTag("filter_active")
+            .performClick()
+
+        for (i in 0..2) {
+            rule.onNodeWithTag("todo_checkbox_$i")
+                .performClick()
+        }
+        rule.onNodeWithTag("empty_state")
+            .assertTextEquals("Нет задач 😴")
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

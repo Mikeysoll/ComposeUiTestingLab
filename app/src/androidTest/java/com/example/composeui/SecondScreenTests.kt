@@ -46,12 +46,37 @@ class SecondScreenTests {
 
         rule.onNodeWithTag("task_input")
             .performTextInput(taskText)
-
         rule.onNodeWithTag("add_button")
             .performClick()
 
         rule.onNodeWithTag("todo_text_0")
             .assertTextEquals("Первая задача")
+        rule.onNodeWithTag("active_count")
+            .assertTextEquals("Активных задач: 1")
+    }
+
+    @Test
+    fun delete_task_from_list() {
+        rule.setContent { SecondScreen(onGoFirst = {}) }
+
+        val taskText = "Первая задача"
+
+        rule.onNodeWithTag("task_input")
+            .performTextInput(taskText)
+        rule.onNodeWithTag("add_button")
+            .performClick()
+
+        rule.onNodeWithTag("active_count")
+            .assertTextEquals("Активных задач: 1")
+
+        rule.onNodeWithTag("todo_delete_0")
+            .performClick()
+
+        rule.onNodeWithTag("active_count")
+            .assertTextEquals("Активных задач: 0")
+        rule.onNodeWithTag("empty_state")
+            .assertIsDisplayed()
+
     }
 }
 

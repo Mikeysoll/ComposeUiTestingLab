@@ -103,25 +103,17 @@ class SecondScreenTests {
 
         val tasks = listOf("Первая задача", "Вторая задача", "Третья задача")
 
-        rule.onNodeWithTag("task_input")
-            .performTextInput(tasks[0])
-        rule.onNodeWithTag("add_button")
-            .performClick()
-        rule.onNodeWithTag("task_input")
-            .performTextInput(tasks[1])
-        rule.onNodeWithTag("add_button")
-            .performClick()
-        rule.onNodeWithTag("task_input")
-            .performTextInput(tasks[2])
-        rule.onNodeWithTag("add_button")
-            .performClick()
+        for (task in tasks) {
+            rule.onNodeWithTag("task_input")
+                .performTextInput(task)
+            rule.onNodeWithTag("add_button")
+                .performClick()
+        }
 
         rule.onNodeWithTag("active_count")
             .assertTextEquals("Активных задач: ${tasks.size}")
         rule.onAllNodesWithTag("todo_item")
             .assertCountEquals(3)
-
-        Thread.sleep(5000)
     }
 }
 

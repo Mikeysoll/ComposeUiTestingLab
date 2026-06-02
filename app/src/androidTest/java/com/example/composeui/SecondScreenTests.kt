@@ -3,6 +3,7 @@ package com.example.composeui
 import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.assertTextContains
 import androidx.compose.ui.test.assertTextEquals
@@ -228,7 +229,7 @@ class SecondScreenTests {
     }
 
     @Test
-    fun filterAllAgain(){
+    fun filterAllAgain() {
         rule.setContent { SecondScreen(onGoFirst = {}) }
 
         val tasks = listOf(
@@ -260,6 +261,40 @@ class SecondScreenTests {
 
         rule.onAllNodesWithTag("todo_item")
             .assertCountEquals(5)
+    }
+
+    @Test
+    fun removeTaskFromFilterView() {
+        rule.setContent { SecondScreen(onGoFirst = {}) }
+
+        val tasks = listOf(
+            "Первая задача",
+            "Вторая задача",
+            "Третья задача",
+            "Четвертая задача",
+            "Пятая задача"
+        )
+
+        for (task in tasks) {
+            rule.onNodeWithTag("task_input")
+                .performTextInput(task)
+            rule.onNodeWithTag("add_button")
+                .performClick()
+        }
+        rule.onNodeWithTag("filter_active")
+            .performClick()
+
+        rule.onAllNodesWithTag("todo_item")
+            .assertCountEquals(5)
+
+        rule.onNodeWithTag("todo_checkbox_0")
+            .performClick()
+
+        rule.onAllNodesWithTag("todo_item")
+            .assertCountEquals(4)
+        rule.onNodeWithText("Первая задача")
+            .assertDoesNotExist()
+
     }
 }
 

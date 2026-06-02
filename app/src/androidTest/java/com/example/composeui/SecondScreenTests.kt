@@ -3,6 +3,7 @@ package com.example.composeui
 import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.assertTextContains
 import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.hasText
@@ -170,6 +171,25 @@ class SecondScreenTests {
 
         rule.onNodeWithTag("active_count")
             .assertTextEquals("Активных задач: ${tasks.size - 1}")
+    }
+
+    @Test
+    fun filterAll(){
+        rule.setContent { SecondScreen(onGoFirst = {}) }
+
+        val tasks = listOf("Первая задача", "Вторая задача", "Третья задача", "Четвертая задача", "Пятая задача")
+
+        for (task in tasks){
+            rule.onNodeWithTag("task_input")
+                .performTextInput(task)
+            rule.onNodeWithTag("add_button")
+                .performClick()
+        }
+
+        rule.onNodeWithTag("filter_all")
+            .assertIsSelected()
+        rule.onAllNodesWithTag("todo_item")
+            .assertCountEquals(5)
     }
 }
 

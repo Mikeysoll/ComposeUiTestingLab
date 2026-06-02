@@ -174,12 +174,18 @@ class SecondScreenTests {
     }
 
     @Test
-    fun filterAll(){
+    fun filterAll() {
         rule.setContent { SecondScreen(onGoFirst = {}) }
 
-        val tasks = listOf("Первая задача", "Вторая задача", "Третья задача", "Четвертая задача", "Пятая задача")
+        val tasks = listOf(
+            "Первая задача",
+            "Вторая задача",
+            "Третья задача",
+            "Четвертая задача",
+            "Пятая задача"
+        )
 
-        for (task in tasks){
+        for (task in tasks) {
             rule.onNodeWithTag("task_input")
                 .performTextInput(task)
             rule.onNodeWithTag("add_button")
@@ -188,6 +194,70 @@ class SecondScreenTests {
 
         rule.onNodeWithTag("filter_all")
             .assertIsSelected()
+        rule.onAllNodesWithTag("todo_item")
+            .assertCountEquals(5)
+    }
+
+    @Test
+    fun filterActive() {
+        rule.setContent { SecondScreen(onGoFirst = {}) }
+
+        val tasks = listOf(
+            "Первая задача",
+            "Вторая задача",
+            "Третья задача",
+            "Четвертая задача",
+            "Пятая задача"
+        )
+
+        for (task in tasks) {
+            rule.onNodeWithTag("task_input")
+                .performTextInput(task)
+            rule.onNodeWithTag("add_button")
+                .performClick()
+        }
+        rule.onNodeWithTag("todo_checkbox_0")
+            .performClick()
+        rule.onNodeWithTag("todo_checkbox_1")
+            .performClick()
+        rule.onNodeWithTag("filter_active")
+            .performClick()
+
+        rule.onAllNodesWithTag("todo_item")
+            .assertCountEquals(3)
+    }
+
+    @Test
+    fun filterAllAgain(){
+        rule.setContent { SecondScreen(onGoFirst = {}) }
+
+        val tasks = listOf(
+            "Первая задача",
+            "Вторая задача",
+            "Третья задача",
+            "Четвертая задача",
+            "Пятая задача"
+        )
+
+        for (task in tasks) {
+            rule.onNodeWithTag("task_input")
+                .performTextInput(task)
+            rule.onNodeWithTag("add_button")
+                .performClick()
+        }
+        rule.onNodeWithTag("todo_checkbox_0")
+            .performClick()
+        rule.onNodeWithTag("todo_checkbox_1")
+            .performClick()
+        rule.onNodeWithTag("filter_active")
+            .performClick()
+
+        rule.onAllNodesWithTag("todo_item")
+            .assertCountEquals(3)
+
+        rule.onNodeWithTag("filter_all")
+            .performClick()
+
         rule.onAllNodesWithTag("todo_item")
             .assertCountEquals(5)
     }

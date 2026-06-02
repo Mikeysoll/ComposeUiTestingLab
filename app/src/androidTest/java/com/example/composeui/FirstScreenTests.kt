@@ -86,17 +86,6 @@ class FirstScreenTests {
     }
 
     @Test
-    fun switchToSecondScreen() {
-        var clicked = false
-
-        rule.setContent { FirstScreen(onGoSecond = { clicked = true }) }
-
-        rule.onNodeWithText("Перейти на 2 экран")
-            .performClick()
-        assert(clicked)
-    }
-
-    @Test
     fun combinedUserFlowTest(){
         rule.setContent { FirstScreen (onGoSecond ={}) }
         rule.onNodeWithText("Войти / Выйти")
@@ -112,6 +101,17 @@ class FirstScreenTests {
 
         rule.onNodeWithText("Счётчик: 5")
             .assertIsDisplayed()
+    }
+
+    @Test
+    fun switchToSecondScreen() {
+        var clicked = false
+
+        rule.setContent { FirstScreen(onGoSecond = { clicked = true }) }
+
+        rule.onNodeWithText("Перейти на 2 экран")
+            .performClick()
+        assert(clicked)
     }
 }
 

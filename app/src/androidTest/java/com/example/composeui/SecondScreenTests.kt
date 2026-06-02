@@ -12,8 +12,10 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
+import androidx.compose.ui.test.printToLog
 import com.example.composeui.screen.SecondScreen
 import org.jetbrains.annotations.TestOnly
 import org.junit.Rule
@@ -294,6 +296,48 @@ class SecondScreenTests {
             .assertCountEquals(4)
         rule.onNodeWithText("Первая задача")
             .assertDoesNotExist()
+    }
+
+    @Test
+    fun updatesListCorrectly() {
+        rule.setContent { SecondScreen(onGoFirst = {}) }
+
+        val tasks = listOf(
+            "Первая задача",
+            "Вторая задача",
+            "Третья задача",
+            "Четвертая задача",
+            "Пятая задача"
+        )
+
+        for (task in tasks) {
+            rule.onNodeWithTag("task_input")
+                .performTextInput(task)
+            rule.onNodeWithTag("add_button")
+                .performClick()
+        }
+
+        rule.onAllNodesWithTag("todo_item")
+            .assertCountEquals(5)
+
+        rule.onNodeWithTag("todo_delete_0")
+            .performClick()
+
+        rule.onAllNodesWithTag("todo_item")
+            .assertCountEquals(4)
+        rule.onNodeWithText("Первая задача")
+            .assertDoesNotExist()
+        rule.onNodeWithTag("todo_text_0")
+            .assertDoesNotExist()
+        rule.onNodeWithTag("todo_text_1")
+            .assertTextEquals("Вторая задача")
+        rule.onNodeWithTag("todo_text_2")
+            .assertTextEquals("Третья задача")
+        rule.onNodeWithTag("todo_text_3")
+            .assertTextEquals("Четвертая задача")
+        rule.onNodeWithTag("todo_text_4")
+            .assertTextEquals("Пятая задача")
+
     }
 }
 

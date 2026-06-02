@@ -1,9 +1,13 @@
 package com.example.composeui
 
+import androidx.compose.ui.test.assert
+import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertTextContains
 import androidx.compose.ui.test.assertTextEquals
+import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -76,7 +80,48 @@ class SecondScreenTests {
             .assertTextEquals("Активных задач: 0")
         rule.onNodeWithTag("empty_state")
             .assertIsDisplayed()
+    }
 
+    @Test
+    fun empty_field_after_adding_task(){
+        rule.setContent { SecondScreen(onGoFirst = {}) }
+
+        val taskText = "Первая задача"
+
+        rule.onNodeWithTag("task_input")
+            .performTextInput(taskText)
+        rule.onNodeWithTag("add_button")
+            .performClick()
+
+        rule.onNodeWithTag("task_input")
+            .assert(hasText(""))
+    }
+
+    @Test
+    fun adding_multiple_tasks(){
+        rule.setContent { SecondScreen(onGoFirst = {}) }
+
+        val tasks = listOf("Первая задача", "Вторая задача", "Третья задача")
+
+        rule.onNodeWithTag("task_input")
+            .performTextInput(tasks[0])
+        rule.onNodeWithTag("add_button")
+            .performClick()
+        rule.onNodeWithTag("task_input")
+            .performTextInput(tasks[1])
+        rule.onNodeWithTag("add_button")
+            .performClick()
+        rule.onNodeWithTag("task_input")
+            .performTextInput(tasks[2])
+        rule.onNodeWithTag("add_button")
+            .performClick()
+
+        rule.onNodeWithTag("active_count")
+            .assertTextEquals("Активных задач: ${tasks.size}")
+        rule.onAllNodesWithTag("todo_item")
+            .assertCountEquals(3)
+
+        Thread.sleep(5000)
     }
 }
 

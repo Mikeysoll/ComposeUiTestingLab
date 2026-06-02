@@ -125,6 +125,7 @@ fun SecondScreen(
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
+                            .testTag("todo_item")
                             .testTag("todo_item_${item.id}"),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {

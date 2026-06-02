@@ -47,12 +47,10 @@ class FirstScreenTests {
     fun counter_should_increment() {
         rule.setContent { FirstScreen(onGoSecond = {}) }
 
-        rule
-            .onNodeWithText("+")
+        rule.onNodeWithText("+")
             .performClick()
 
-        rule
-            .onNodeWithText("Счётчик: 1")
+        rule.onNodeWithText("Счётчик: 1")
             .assertIsDisplayed()
     }
 
@@ -60,20 +58,16 @@ class FirstScreenTests {
     fun counter_should_decrement() {
         rule.setContent { FirstScreen(onGoSecond = {}) }
 
-        rule
-            .onNodeWithText("+")
+        rule.onNodeWithText("+")
             .performClick()
 
-        rule
-            .onNodeWithText("Счётчик: 1")
+        rule.onNodeWithText("Счётчик: 1")
             .assertIsDisplayed()
 
-        rule
-            .onNodeWithText("-")
+        rule.onNodeWithText("-")
             .performClick()
 
-        rule
-            .onNodeWithText("Счётчик: 0")
+        rule.onNodeWithText("Счётчик: 0")
             .assertIsDisplayed()
     }
 
@@ -81,16 +75,13 @@ class FirstScreenTests {
     fun error_should_show_when_counter_below_zero_blocked() {
         rule.setContent { FirstScreen(onGoSecond = {}) }
 
-        rule
-            .onNodeWithText("Счётчик: 0")
+        rule.onNodeWithText("Счётчик: 0")
             .assertIsDisplayed()
 
-        rule
-            .onNodeWithText("-")
+        rule.onNodeWithText("-")
             .performClick()
 
-        rule
-            .onNodeWithText("Ошибка: нельзя уйти в минус")
+        rule.onNodeWithText("Ошибка: нельзя уйти в минус")
             .assertIsDisplayed()
     }
 
